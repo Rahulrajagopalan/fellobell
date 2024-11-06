@@ -6,7 +6,14 @@ class CustomTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      keyboardType: TextInputType.phone,
+      validator: (value) {
+        if (value!.isEmpty && value.length == 10) {
+          return "Enter valid phone";
+        }
+        return null;
+      },
       controller: textController,
       decoration: const InputDecoration(border: OutlineInputBorder()),
     );

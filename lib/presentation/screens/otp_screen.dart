@@ -1,7 +1,7 @@
 import 'package:fello_bell_project/core/constants.dart';
 import 'package:fello_bell_project/core/utility.dart';
 import 'package:fello_bell_project/infrastructure/services/api_service.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/custom_button.dart';
+import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
@@ -59,6 +59,13 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
             ),
             smallSizing,
+            CustomButton(
+                buttonText: "Verify",
+                buttonFunction: () {
+                  String otp = otpController.text;
+                  apiService.verifyOtp(phoneNumber, otp).then((value) {});
+                }),
+            smallSizing,
             GestureDetector(
               onTap: utils.start == 0.obs
                   ? () {
@@ -69,26 +76,20 @@ class _OtpScreenState extends State<OtpScreen> {
                     }
                   : null,
               child: Obx(() => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Didn't recieve an OTP? "),
-                  Text(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Didn't recieve an OTP? ", style: customSubHeading,),
+                      Text(
                         "Resend in ${utils.start} sec",
                         style: TextStyle(
-                          color: utils.start == 0.obs ? Colors.red : Colors.grey,
+                          color:
+                              utils.start == 0.obs ? Colors.blue : Colors.red,
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                ],
-              )),
+                    ],
+                  )),
             ),
-            CustomButton(
-                buttonText: "Verify",
-                buttonFunction: () {
-                  String otp = otpController.text;
-                  apiService.verifyOtp(phoneNumber, otp).then((value) {});
-                }),
           ],
         ),
       ),

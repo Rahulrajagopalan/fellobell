@@ -1,5 +1,5 @@
 import 'package:fello_bell_project/core/constants.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/custom_button.dart';
+import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,10 +26,10 @@ class IntroScreen extends StatelessWidget {
             introDialogue,
             smallSizing,
             CustomButton(
-                buttonText: "Login",
+                buttonText: "LOGIN",
                 buttonFunction: () => Get.toNamed('/login')),
             CustomButton(
-                buttonText: "Register",
+                buttonText: "REGISTER",
                 buttonFunction: () => Get.toNamed('/register')),
           ],
         ),
