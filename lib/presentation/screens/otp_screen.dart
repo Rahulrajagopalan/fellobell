@@ -37,16 +37,19 @@ class _OtpScreenState extends State<OtpScreen> {
               "OTP Verification",
               style: customHeading,
             ),
-            h20,
             Text(
               "Enter otp sent to +91 $phoneNumber",
             ),
             h20,
-            const Text(
-              "Enter OTP",
-              style: customSubHeading,
+            Row(
+              children: [
+                const Text(
+                  "Enter OTP",
+                  style: customSubHeading,
+                ),
+              ],
             ),
-            h20,
+            h10,
             Pinput(
               controller: otpController,
               length: 4,

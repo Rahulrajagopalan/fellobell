@@ -24,7 +24,6 @@ class IntroScreen extends StatelessWidget {
               height: 20,
             ),
             introDialogue,
-            h20,
             Padding(
               padding: horizon20,
               child: Column(

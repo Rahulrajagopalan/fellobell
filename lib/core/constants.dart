@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 const EdgeInsets horizon20 =
-    EdgeInsets.symmetric(horizontal: 20.0);
+    EdgeInsets.symmetric(vertical: 60.0, horizontal: 20.0);
 const EdgeInsets horizon10 =
     EdgeInsets.symmetric(horizontal: 10.0);
 const TextStyle customHeading =

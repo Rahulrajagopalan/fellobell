@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: "/",
       getPages: Nav.routes,
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Fellobell',
     );
   }
 }
