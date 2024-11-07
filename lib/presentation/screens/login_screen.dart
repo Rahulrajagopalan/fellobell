@@ -14,8 +14,9 @@ class LoginScreen extends StatelessWidget {
     TextEditingController phoneController = TextEditingController();
     final formKey = GlobalKey<FormState>();
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
-        padding: customPadding,
+        padding: horizon20,
         child: Form(
           key: formKey,
           child: ListView(
@@ -26,21 +27,21 @@ class LoginScreen extends StatelessWidget {
                 style: customHeading,
               ),
               const Text(
-                "Enter mobile number to continue",
+                "Enter mobile number to continue", style: customDescription,
               ),
-              smallSizing,
+              h20,
               const Text(
                 "Enter your mobile number",
                 style: customSubHeading,
               ),
-              smallSizing,
+              h20,
               CustomTextfield(textController: phoneController),
-              smallSizing,
+              h20,
               CustomButton(
                   buttonText: "Get OTP",
                   buttonFunction: () {
                     if (formKey.currentState!.validate()) {
-                      utils.buttonCall(phoneController.text, formKey);
+                      utils.buttonCall(phoneController.text);
                     }
                   }),
               Row(

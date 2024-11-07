@@ -10,12 +10,12 @@ class IntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 20.0),
+        padding: horizon10,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             appImage,
-            smallSizing,
+            h20,
             const Text(
               "Welcome to Fellobell",
               style: customHeading,
@@ -24,13 +24,21 @@ class IntroScreen extends StatelessWidget {
               height: 20,
             ),
             introDialogue,
-            smallSizing,
-            CustomButton(
-                buttonText: "LOGIN",
-                buttonFunction: () => Get.toNamed('/login')),
-            CustomButton(
-                buttonText: "REGISTER",
-                buttonFunction: () => Get.toNamed('/register')),
+            h20,
+            Padding(
+              padding: horizon20,
+              child: Column(
+                children: [
+                  CustomButton(
+                      buttonText: "LOGIN",
+                      buttonFunction: () => Get.toNamed('/login')),
+                  h20,
+                  CustomButton(
+                      buttonText: "REGISTER",
+                      buttonFunction: () => Get.toNamed('/register')),
+                ],
+              ),
+            ),
           ],
         ),
       ),

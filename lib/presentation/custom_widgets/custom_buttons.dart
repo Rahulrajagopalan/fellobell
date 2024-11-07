@@ -9,8 +9,8 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: buttonFunction,
+    return GestureDetector(
+        onTap: buttonFunction,
         child: Container(
             width: double.infinity,
             height: 60,
@@ -30,9 +30,9 @@ class CustomButton extends StatelessWidget {
 }
 
 class CustomTextButton extends StatelessWidget {
-  String routeName;
-  String routeText;
-  CustomTextButton({super.key, required this.routeName, required this.routeText});
+  final String routeName;
+  final String routeText;
+  const CustomTextButton({super.key, required this.routeName, required this.routeText});
 
   @override
   Widget build(BuildContext context) {

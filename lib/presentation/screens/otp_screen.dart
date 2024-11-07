@@ -2,6 +2,7 @@ import 'package:fello_bell_project/core/constants.dart';
 import 'package:fello_bell_project/core/utility.dart';
 import 'package:fello_bell_project/infrastructure/services/api_service.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
+import 'package:fello_bell_project/presentation/custom_widgets/resend_otp_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
@@ -14,10 +15,10 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  Utility utils = Utility();
   final String phoneNumber = Get.arguments ?? 'No Number';
   TextEditingController otpController = TextEditingController();
   var apiService = Get.find<ApiService>();
+  var utils = Get.find<Utility>();
   @override
   void initState() {
     super.initState();
@@ -27,24 +28,25 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
-        padding: customPadding,
-        child: ListView(
+        padding: horizon20,
+        child: Column(
           children: [
             const Text(
               "OTP Verification",
               style: customHeading,
             ),
-            smallSizing,
+            h20,
             Text(
               "Enter otp sent to +91 $phoneNumber",
             ),
-            smallSizing,
+            h20,
             const Text(
               "Enter OTP",
               style: customSubHeading,
             ),
-            smallSizing,
+            h20,
             Pinput(
               controller: otpController,
               length: 4,
@@ -58,38 +60,17 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
             ),
-            smallSizing,
+            h20,
             CustomButton(
                 buttonText: "Verify",
                 buttonFunction: () {
-                  String otp = otpController.text;
-                  apiService.verifyOtp(phoneNumber, otp).then((value) {});
+                  apiService.verifyOtp(phoneNumber, otpController.text).then((value) {
+                    otpController.clear();
+                    utils.resetTimer();
+                  });
                 }),
-            smallSizing,
-            GestureDetector(
-              onTap: utils.start == 0.obs
-                  ? () {
-                      utils.resetTimer();
-                      apiService
-                          .fetchOtp(phoneNumber)
-                          .then((value) => Utility().otpMessage(value));
-                    }
-                  : null,
-              child: Obx(() => Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Didn't recieve an OTP? ", style: customSubHeading,),
-                      Text(
-                        "Resend in ${utils.start} sec",
-                        style: TextStyle(
-                          color:
-                              utils.start == 0.obs ? Colors.blue : Colors.red,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  )),
-            ),
+            h20,
+            ResendOtpText(phoneNumber: phoneNumber),
           ],
         ),
       ),

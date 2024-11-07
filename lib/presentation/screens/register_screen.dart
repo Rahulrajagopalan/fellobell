@@ -14,22 +14,22 @@ class RegisterScreen extends StatelessWidget {
     var utils = Get.find<Utility>();
     final formKey = GlobalKey<FormState>();
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
-        padding: customPadding,
+        padding: horizon20,
         child: Form(
           key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Text(
-                "Let's Get Started",
+                "Let's Get Started!",
                 style: customHeading,
               ),
-              smallSizing,
               const Text(
-                "Create an account get all features",
+                "Create an account get all features", style: customDescription,
               ),
-              smallSizing,
+              h20,
               const Row(
                 children: [
                   Text(
@@ -38,13 +38,15 @@ class RegisterScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              smallSizing,
+              h10,
               CustomTextfield(textController: phoneController),
-              smallSizing,
+              h20,
               CustomButton(
                   buttonText: "Get OTP",
                   buttonFunction: () {
-                    utils.buttonCall(phoneController.text, formKey);
+                    if (formKey.currentState!.validate()) {
+                      utils.buttonCall(phoneController.text);
+                    }
                   }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

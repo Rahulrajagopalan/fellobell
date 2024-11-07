@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:fello_bell_project/infrastructure/services/api_service.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Utility extends GetxService {
@@ -17,10 +16,10 @@ class Utility extends GetxService {
   var start = 60.obs;
   late Timer timer;
   void startTimer() {
-    start = 60.obs;
+    start.value = 60;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (start > 0) {
-        start--;
+      if (start.value > 0) {
+        start.value--;
       } else {
         timer.cancel();
       }
@@ -34,10 +33,10 @@ class Utility extends GetxService {
 
   // Function for tap
 
-  void buttonCall(String phone, GlobalKey<FormState> formKey) {
-    if (phone.isNotEmpty && formKey.currentState!.validate()) {
+  void buttonCall(String phone) {
+    if (phone.isNotEmpty) {
       apiService.fetchOtp(phone).then((value) {
-          Utility().otpMessage(value);
+          otpMessage(value);
           Get.toNamed('/otpScreen', arguments: phone);
       });
     } else {

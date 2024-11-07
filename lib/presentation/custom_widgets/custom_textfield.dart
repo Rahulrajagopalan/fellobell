@@ -9,8 +9,11 @@ class CustomTextfield extends StatelessWidget {
     return TextFormField(
       keyboardType: TextInputType.phone,
       validator: (value) {
-        if (value!.isEmpty && value.length == 10) {
-          return "Enter valid phone";
+        if (value == null || value.isEmpty) {
+          return "Phone number cannot be empty";
+        }
+        if (value.length != 10) {
+          return "Enter a valid 10-digit phone number";
         }
         return null;
       },
