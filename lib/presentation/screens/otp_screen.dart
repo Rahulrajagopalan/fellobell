@@ -1,57 +1,41 @@
 import 'package:fello_bell_project/core/constants.dart';
-import 'package:fello_bell_project/core/utility.dart';
-import 'package:fello_bell_project/infrastructure/services/api_service.dart';
+import 'package:fello_bell_project/presentation/controller/otp_controller.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/resend_otp_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 
-class OtpScreen extends StatefulWidget {
+class OtpScreen extends GetView<OtpController> {
   const OtpScreen({super.key});
-
-  @override
-  State<OtpScreen> createState() => _OtpScreenState();
-}
-
-class _OtpScreenState extends State<OtpScreen> {
-  final String phoneNumber = Get.arguments ?? 'No Number';
-  TextEditingController otpController = TextEditingController();
-  var apiService = Get.find<ApiService>();
-  var utils = Get.find<Utility>();
-  @override
-  void initState() {
-    super.initState();
-    utils.startTimer();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: horizon20,
+        padding: Constants.horizon20,
         child: Column(
           children: [
-            const Text(
+            Text(
               "OTP Verification",
-              style: customHeading,
+              style: Constants.customHeading,
             ),
             Text(
-              "Enter otp sent to +91 $phoneNumber",
+              "Enter OTP sent to +91 ${controller.phoneNumber}",
             ),
-            h20,
+            Constants.h20,
             Row(
               children: [
-                const Text(
+                Text(
                   "Enter OTP",
-                  style: customSubHeading,
+                  style: Constants.customSubHeading,
                 ),
               ],
             ),
-            h10,
+            Constants.h10,
             Pinput(
-              controller: otpController,
+              controller: controller.otpController,
               length: 4,
               defaultPinTheme: PinTheme(
                 width: 80,
@@ -63,17 +47,13 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
             ),
-            h20,
+            Constants.h20,
             CustomButton(
-                buttonText: "Verify",
-                buttonFunction: () {
-                  apiService.verifyOtp(phoneNumber, otpController.text).then((value) {
-                    otpController.clear();
-                    utils.resetTimer();
-                  });
-                }),
-            h20,
-            ResendOtpText(phoneNumber: phoneNumber),
+              buttonText: "Verify",
+              buttonFunction: controller.verifyOtp,
+            ),
+            Constants.h20,
+            ResendOtpText(phoneNumber: controller.phoneNumber),
           ],
         ),
       ),

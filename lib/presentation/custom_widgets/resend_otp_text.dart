@@ -27,9 +27,9 @@ class ResendOtpText extends StatelessWidget {
       child: Obx(() => Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+               Text(
                 "Didn't recieve an OTP? ",
-                style: customSubHeading,
+                style: Constants.customSubHeading,
               ),
               Text(
                 "Resend in ${utils.start.value} sec",

@@ -1,54 +1,52 @@
 import 'package:fello_bell_project/core/constants.dart';
-import 'package:fello_bell_project/core/utility.dart';
+import 'package:fello_bell_project/presentation/controller/login_controller.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetView<LoginController> {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var utils = Get.find<Utility>();
-    TextEditingController phoneController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: horizon20,
+        padding: Constants.horizon20,
         child: Form(
-          key: formKey,
+          key: controller.formKey,
           child: ListView(
             children: [
-              appImage,
-              const Text(
+              Constants.appImage,
+              Text(
                 "Welcome",
-                style: customHeading,
+                style: Constants.customHeading,
               ),
-              const Text(
-                "Enter mobile number to continue", style: customDescription,
+              Text(
+                "Enter mobile number to continue",
+                style: Constants.customDescription,
               ),
-              h20,
-              const Text(
+              Constants.h20,
+              Text(
                 "Enter your mobile number",
-                style: customSubHeading,
+                style: Constants.customSubHeading,
               ),
-              h20,
-              CustomTextfield(textController: phoneController),
-              h20,
+              Constants.h20,
+              CustomTextfield(textController: controller.phoneController),
+              Constants.h20,
               CustomButton(
-                  buttonText: "Get OTP",
-                  buttonFunction: () {
-                    if (formKey.currentState!.validate()) {
-                      utils.buttonCall(phoneController.text);
-                    }
-                  }),
+                buttonText: "Get OTP",
+                buttonFunction: controller.onGetOtpPressed,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text("Don't have an account? "),
-                  CustomTextButton(routeName: '/register', routeText: "Register Here")
+                  CustomTextButton(
+                    routeName: '/register',
+                    routeText: "Register Here",
+                  ),
                 ],
               ),
             ],

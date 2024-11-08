@@ -2,22 +2,21 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart' as dio;
+import 'package:dio/dio.dart';
 import 'package:fello_bell_project/core/utility.dart';
-import 'package:fello_bell_project/domain/core/di/dependancy.dart';
 import 'package:fello_bell_project/infrastructure/services/api_constants.dart';
 import 'package:fello_bell_project/presentation/model/otp_response.dart';
 import 'package:fello_bell_project/presentation/model/otp_verify.dart';
 import 'package:get/get.dart';
 
-enum Method { post, get, put, delete, patch }
 
-class ApiService extends GetConnect implements GetxService {
+class ApiService extends GetxController {
   ApiConstants apiConstants = ApiConstants();
 
 // Fetch OTP Function
   Future<String> fetchOtp(String phone) async {
     try {
-      final dioInstance = sl<dio.Dio>();
+      final Dio dioInstance = Get.find<Dio>();
       final body = dio.FormData.fromMap(
           {'mobile_number': phone, 'from_app': '0', 'process_type': '0'});
 
@@ -50,7 +49,7 @@ class ApiService extends GetConnect implements GetxService {
 // Verify OTP Function
   Future<void> verifyOtp(String phone, String otp) async {
     try {
-      final dioInstance = sl<dio.Dio>();
+      final Dio dioInstance = Get.find<Dio>();
 
       final body = dio.FormData.fromMap({
         'mobile_number': phone,

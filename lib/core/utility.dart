@@ -5,14 +5,18 @@ import 'package:get/get.dart';
 
 class Utility extends GetxService {
   var apiService = Get.find<ApiService>();
+  // OTP message
   void otpMessage(String otpMsg) {
     Get.snackbar("OTP is: ", otpMsg);
   }
+
+  // Success message
 
   void successMessage(String msg) {
     Get.snackbar("Success!!!", msg);
   }
 
+  // Timer for OTP
   var start = 60.obs;
   late Timer timer;
   void startTimer() {
@@ -36,11 +40,19 @@ class Utility extends GetxService {
   void buttonCall(String phone) {
     if (phone.isNotEmpty) {
       apiService.fetchOtp(phone).then((value) {
-          otpMessage(value);
-          Get.toNamed('/otpScreen', arguments: phone);
+        otpMessage(value);
+        Get.toNamed('/otpScreen', arguments: phone);
       });
     } else {
       Get.snackbar("Invalid Number", "Enter valid phone number");
     }
+  }
+
+  // OTP verify
+
+  void otpVerify(String phoneNumber, String otp) {
+    apiService.verifyOtp(phoneNumber, otp).then((value) {
+      resetTimer();
+    });
   }
 }
