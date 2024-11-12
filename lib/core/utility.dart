@@ -15,10 +15,15 @@ class Utility extends GetxService {
   void successMessage(String msg) {
     Get.snackbar("Success!!!", msg);
   }
+  void errorMessage(String msg) {
+    Get.snackbar("Somethin Went Wrong!!!", msg);
+  }
 
   // Timer for OTP
   var start = 60.obs;
   late Timer timer;
+
+  // Method to start the timer
   void startTimer() {
     start.value = 60;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -30,8 +35,9 @@ class Utility extends GetxService {
     });
   }
 
+  // Method to reset the timer
   void resetTimer() {
-    timer.cancel();
+    if (timer.isActive) timer.cancel();
     startTimer();
   }
 
@@ -43,6 +49,15 @@ class Utility extends GetxService {
         otpMessage(value);
         Get.toNamed('/otpScreen', arguments: phone);
       });
+    } else {
+      Get.snackbar("Invalid Number", "Enter valid phone number");
+    }
+  }
+
+  // resend OTP call
+  void resendCall(String phone) {
+    if (phone.isNotEmpty) {
+      apiService.fetchOtp(phone);
     } else {
       Get.snackbar("Invalid Number", "Enter valid phone number");
     }

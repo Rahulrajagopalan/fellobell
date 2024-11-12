@@ -73,7 +73,7 @@ class ApiService extends GetxController {
           Get.toNamed("/login"); // Navigate to login screen
         } else {
           log("OTP verification failed: ${otpVerify.message}");
-          Utility().successMessage("OTP verification failed: ${otpVerify.message}");
+          Utility().errorMessage("OTP verification failed: ${otpVerify.message}");
         }
       } else {
         log("Server error with status code: ${response.statusCode}");

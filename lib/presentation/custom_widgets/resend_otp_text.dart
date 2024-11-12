@@ -1,6 +1,5 @@
 import 'package:fello_bell_project/core/constants.dart';
 import 'package:fello_bell_project/core/utility.dart';
-import 'package:fello_bell_project/infrastructure/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,26 +8,25 @@ class ResendOtpText extends StatelessWidget {
     super.key,
     required this.phoneNumber,
   });
+
   final String phoneNumber;
 
   @override
   Widget build(BuildContext context) {
-    var apiService = Get.find<ApiService>();
     var utils = Get.find<Utility>();
+
     return GestureDetector(
       onTap: utils.start.value == 0
           ? () {
               utils.resetTimer();
-              apiService
-                  .fetchOtp(phoneNumber)
-                  .then((value) => utils.otpMessage(value));
+              utils.resendCall(phoneNumber);
             }
           : null,
       child: Obx(() => Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               Text(
-                "Didn't recieve an OTP? ",
+              Text(
+                "Didn't receive an OTP? ",
                 style: Constants.customSubHeading,
               ),
               Text(

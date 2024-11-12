@@ -18,6 +18,7 @@ class CustomTextfield extends StatelessWidget {
         return null;
       },
       controller: textController,
+      style: TextStyle(color: Colors.black),
       decoration: const InputDecoration(border: OutlineInputBorder()),
     );
   }
