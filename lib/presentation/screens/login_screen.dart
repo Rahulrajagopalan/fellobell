@@ -18,6 +18,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final Utility utils = Get.find<Utility>();
 
   @override
+  void dispose() {
+    phoneController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
@@ -49,7 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 buttonFunction: () {
                   if (formKey.currentState!.validate()) {
                     utils.buttonCall(phoneController.text);
-                    phoneController.clear();
                   }
                 },
               ),

@@ -17,35 +17,40 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   late String phoneNumber;
   final TextEditingController otpController = TextEditingController();
-  late Timer _timer;
-  int _timeRemaining = 60;
   final utils = Get.find<Utility>();
+
+  // Timer for OTP countdown
+  var start = 60.obs;
+  late Timer timer;
 
   @override
   void initState() {
     super.initState();
     phoneNumber = Get.arguments ?? 'No Number';
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      startTimer();
-    });
+    startTimer();
   }
 
+  // Start the OTP countdown timer
   void startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_timeRemaining > 0) {
-        setState(() {
-          _timeRemaining--;
-        });
+    start.value = 60;
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (start.value > 0) {
+        start.value--;
       } else {
         timer.cancel();
       }
     });
   }
 
+  // Reset the timer and start it again
+  void resetTimer() {
+    if (timer.isActive) timer.cancel();
+    startTimer();
+  }
+
   @override
   void dispose() {
-    _timer.cancel();
+    timer.cancel();
     otpController.dispose();
     super.dispose();
   }
@@ -93,11 +98,14 @@ class _OtpScreenState extends State<OtpScreen> {
               buttonText: "Verify",
               buttonFunction: () {
                 utils.otpVerify(phoneNumber, otpController.text);
-                otpController.clear();
               },
             ),
             Constants.h20,
-            ResendOtpText(phoneNumber: phoneNumber)
+            ResendOtpText(
+              phoneNumber: phoneNumber,
+              start: start, // Pass the observable countdown timer
+              resetTimer: resetTimer, // Pass the resetTimer function
+            )
           ],
         ),
       ),

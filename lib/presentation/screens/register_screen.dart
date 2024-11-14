@@ -17,6 +17,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final phoneController = TextEditingController();
   final Utility utils = Get.find<Utility>();
   @override
+  void dispose() {
+    phoneController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
@@ -52,7 +57,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 buttonFunction: () {
                   if (formKey.currentState!.validate()) {
                     utils.buttonCall(phoneController.text);
-                    phoneController.clear();
                   }
                 },
               ),
