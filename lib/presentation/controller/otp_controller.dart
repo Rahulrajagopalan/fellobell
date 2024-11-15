@@ -7,23 +7,24 @@ import 'package:fello_bell_project/core/utility.dart';
 class OtpController extends GetxController {
   final ApiService _apiService = ApiService();
 
-  Future<void> requestOtp(String phone) async {
+  Future<bool> requestOtp(String phone) async {
     final otpResult = await _apiService.fetchOtp(phone);
     if (otpResult.startsWith("Error")) {
       Utility().errorMessage(otpResult);
+      return false;
     } else {
       Utility().otpMessage(otpResult);
+      Get.toNamed('/otpScreen', arguments: phone);
+      return true;
     }
   }
 
   Future<void> verifyOtp(String phone, String otp) async {
     final isVerified = await _apiService.verifyPhoneOtp(phone, otp);
     if (isVerified) {
-      log("message");
       Utility().successMessage("OTP verified successfully!");
       Get.toNamed("/login");
     } else {
-      log("hi");
       Utility().errorMessage("Failed to verify OTP. Try again.");
     }
   }

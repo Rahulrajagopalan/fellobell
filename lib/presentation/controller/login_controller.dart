@@ -7,10 +7,13 @@ class LoginController extends GetxController {
   // Function to handle OTP request and navigation
   Future<void> requestOtpAndNavigate(String phoneNumber) async {
     try {
-      await otpController.requestOtp(phoneNumber);
-      Get.toNamed('/otpScreen', arguments: phoneNumber);
+      final otpValue = await otpController.requestOtp(phoneNumber);
+      if (otpValue) {
+        Get.toNamed('/otpScreen', arguments: phoneNumber);
+      } else {
+        Get.snackbar("Error", "OTP call failed");
+      }
     } catch (e) {
-      // Handle any errors that occur during OTP request
       Get.snackbar("Error", "Failed to request OTP");
     }
   }

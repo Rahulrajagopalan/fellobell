@@ -18,15 +18,9 @@ class Navigation {
         })),
     GetPage(
         name: "/register",
-        page: () => const RegisterScreen(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut<RegisterController>(() => RegisterController());
-        })),
+        page: () => const RegisterScreen(),),
     GetPage(
         name: "/login",
-        page: () => const LoginScreen(),
-        binding: BindingsBuilder(() {
-          Get.lazyPut<LoginController>(() => LoginController());
-        })),
+        page: () => const LoginScreen(),),
   ];
 }
