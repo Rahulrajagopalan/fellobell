@@ -7,6 +7,7 @@ class CustomTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: 10,
       keyboardType: TextInputType.phone,
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -19,7 +20,7 @@ class CustomTextfield extends StatelessWidget {
       },
       controller: textController,
       style: TextStyle(color: Colors.black),
-      decoration: const InputDecoration(border: OutlineInputBorder()),
+      decoration: const InputDecoration(border: OutlineInputBorder(), prefix: Text("+ 91 ")),
     );
   }
 }

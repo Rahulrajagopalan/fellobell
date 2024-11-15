@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:fello_bell_project/infrastructure/services/api_service.dart';
 import 'package:fello_bell_project/core/utility.dart';
@@ -9,7 +7,7 @@ class OtpController extends GetxController {
 
   Future<bool> requestOtp(String phone) async {
     final otpResult = await _apiService.fetchOtp(phone);
-    if (otpResult.startsWith("Error")) {
+    if (otpResult.length != 4) {
       Utility().errorMessage(otpResult);
       return false;
     } else {
