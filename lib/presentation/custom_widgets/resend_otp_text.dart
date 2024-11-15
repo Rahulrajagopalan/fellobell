@@ -13,13 +13,13 @@ class ResendOtpText extends StatelessWidget {
   });
 
   final String phoneNumber;
-  final RxInt start; // Observable countdown passed from parent
+  final RxInt start;
   final VoidCallback resetTimer;
 
   @override
   Widget build(BuildContext context) {
     var apiService = Get.find<ApiService>();
-    var utils = Get.find<Utility>();
+    var utils = Utility();
     
     return GestureDetector(
       onTap: start.value == 0

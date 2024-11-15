@@ -1,5 +1,5 @@
 import 'package:fello_bell_project/core/constants.dart';
-import 'package:fello_bell_project/core/utility.dart';
+import 'package:fello_bell_project/presentation/controller/login_controller.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +13,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final formKey = GlobalKey<FormState>();
-  final phoneController = TextEditingController();
-  final Utility utils = Get.find<Utility>();
-
   @override
   void dispose() {
     phoneController.dispose();
     super.dispose();
   }
+
+  final formKey = GlobalKey<FormState>();
+  final phoneController = TextEditingController();
+  final loginController = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 buttonText: "Get OTP",
                 buttonFunction: () {
                   if (formKey.currentState!.validate()) {
-                    utils.buttonCall(phoneController.text);
+                    if (phoneController.text.isNotEmpty) {
+                      loginController.requestOtpAndNavigate(phoneController.text);
+                    } else {
+                      Get.snackbar(
+                          "Invalid Number", "Enter valid phone number");
+                    }
                   }
                 },
               ),

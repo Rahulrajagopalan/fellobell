@@ -1,23 +1,17 @@
-// import 'package:fello_bell_project/core/utility.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'package:fello_bell_project/presentation/controller/otp_controller.dart';
+import 'package:get/get.dart';
 
-// class RegisterController extends GetxController {
-//   final formKey = GlobalKey<FormState>();
-//   final phoneController = TextEditingController();
-//   final Utility utils = Get.find<Utility>();
+class RegisterController extends GetxController {
+  final otpController = Get.find<OtpController>();
 
-//   // Method for handling the OTP request
-//   void onGetOtpPressed() {
-//     if (formKey.currentState!.validate()) {
-//       utils.buttonCall(phoneController.text);
-//       phoneController.clear();
-//     }
-//   }
-
-//   @override
-//   void onClose() {
-//     phoneController.dispose();
-//     super.onClose();
-//   }
-// }
+  // Function to handle OTP request and navigation
+  Future<void> requestOtpAndNavigate(String phoneNumber) async {
+    try {
+      await otpController.requestOtp(phoneNumber);
+      Get.toNamed('/otpScreen', arguments: phoneNumber);
+    } catch (e) {
+      // Handle any errors that occur during OTP request
+      Get.snackbar("Error", "Failed to request OTP");
+    }
+  }
+}

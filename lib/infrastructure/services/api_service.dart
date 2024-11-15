@@ -2,34 +2,38 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart' as dio;
-import 'package:dio/dio.dart';
 import 'package:fello_bell_project/core/utility.dart';
 import 'package:fello_bell_project/infrastructure/services/api_constants.dart';
 import 'package:fello_bell_project/presentation/model/otp_response.dart';
 import 'package:fello_bell_project/presentation/model/otp_verify.dart';
 import 'package:get/get.dart';
 
+class ApiService {
+  // Singleton pattern for ApiService
+  static final ApiService _instance = ApiService._internal();
+  factory ApiService() => _instance;
+  ApiService._internal();
 
-class ApiService extends GetxController {
-  ApiConstants apiConstants = ApiConstants();
+  final ApiConstants apiConstants = ApiConstants();
+  final dio.Dio _dioInstance = Get.find<dio.Dio>();
 
-// Fetch OTP Function
   Future<String> fetchOtp(String phone) async {
     try {
-      final Dio dioInstance = Get.find<Dio>();
-      final body = dio.FormData.fromMap(
-          {'mobile_number': phone, 'from_app': '0', 'process_type': '0'});
+      final formData = dio.FormData.fromMap({
+        'mobile_number': phone,
+        'from_app': '0',
+        'process_type': '0'
+      });
 
       // Send OTP request
-      final response = await dioInstance.post(
+      final response = await _dioInstance.post(
         '${apiConstants.baseUrl}/registration_otp_req',
         options: dio.Options(headers: apiConstants.headers),
-        data: body,
+        data: formData,
       );
 
       if (response.statusCode == 200) {
         final otpResponse = OtpResponse.fromJson(jsonDecode(response.data));
-
         if (otpResponse.status) {
           return otpResponse.data.toString();
         } else {
@@ -37,49 +41,47 @@ class ApiService extends GetxController {
           return "Error occurred: ${otpResponse.message}";
         }
       } else {
-        log("Server error with status code: ${response.statusCode}");
-        return "Error occurred";
+        log("Server error: Status Code ${response.statusCode}");
+        return "Server Error: ${response.statusCode}";
       }
     } catch (e) {
-      log("Exception: $e");
+      log("Exception in fetchOtp: $e");
       return "Not fetched";
     }
   }
 
-// Verify OTP Function
-  Future<void> verifyOtp(String phone, String otp) async {
+  Future<bool> verifyPhoneOtp(String phone, String otp) async {
     try {
-      final Dio dioInstance = Get.find<Dio>();
-
-      final body = dio.FormData.fromMap({
+      final formData = dio.FormData.fromMap({
         'mobile_number': phone,
         'otp': otp,
         'from_app': '0',
       });
 
-      final response = await dioInstance.post(
+      final response = await _dioInstance.post(
         '${apiConstants.baseUrl}/otp_validation',
         options: dio.Options(headers: apiConstants.headers),
-        data: body,
+        data: formData,
       );
 
       if (response.statusCode == 200) {
-        // Parse response data using otpVerify model
         final otpVerify = OtpVerify.fromJson(jsonDecode(response.data));
-
         if (otpVerify.status) {
           log("OTP verified successfully!");
-          Utility().successMessage(otpVerify.message); // Display success message
-          Get.toNamed("/login"); // Navigate to login screen
+          return true;
         } else {
           log("OTP verification failed: ${otpVerify.message}");
           Utility().errorMessage("OTP verification failed: ${otpVerify.message}");
+          return false;
         }
       } else {
-        log("Server error with status code: ${response.statusCode}");
+        log("Server error: Status Code ${response.statusCode}");
+        Utility().errorMessage("Network error");
+        return false;
       }
     } catch (e) {
-      log("Error: $e");
+      log("Error in verifyOtp: $e");
+      return false;
     }
   }
 }

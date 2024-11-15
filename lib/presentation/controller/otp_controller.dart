@@ -1,27 +1,30 @@
-// import 'package:fello_bell_project/core/utility.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'dart:developer';
 
-// class OtpController extends GetxController {
-//   final phoneNumber = Get.arguments ?? 'No Number';
-//   final otpController = TextEditingController();
-//   final utils = Get.find<Utility>();
+import 'package:get/get.dart';
+import 'package:fello_bell_project/infrastructure/services/api_service.dart';
+import 'package:fello_bell_project/core/utility.dart';
 
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     utils.startTimer();
-//   }
+class OtpController extends GetxController {
+  final ApiService _apiService = ApiService();
 
-//   // Method to verify OTP
-//   void verifyOtp() {
-//     utils.otpVerify(phoneNumber, otpController.text);
-//     otpController.clear();
-//   }
+  Future<void> requestOtp(String phone) async {
+    final otpResult = await _apiService.fetchOtp(phone);
+    if (otpResult.startsWith("Error")) {
+      Utility().errorMessage(otpResult);
+    } else {
+      Utility().otpMessage(otpResult);
+    }
+  }
 
-//   @override
-//   void onClose() {
-//     otpController.dispose();
-//     super.onClose();
-//   }
-// }
+  Future<void> verifyOtp(String phone, String otp) async {
+    final isVerified = await _apiService.verifyPhoneOtp(phone, otp);
+    if (isVerified) {
+      log("message");
+      Utility().successMessage("OTP verified successfully!");
+      Get.toNamed("/login");
+    } else {
+      log("hi");
+      Utility().errorMessage("Failed to verify OTP. Try again.");
+    }
+  }
+}

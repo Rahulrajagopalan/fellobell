@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:fello_bell_project/infrastructure/services/api_service.dart';
 import 'package:get/get.dart';
 
-class Utility extends GetxService {
+class Utility {
   var apiService = Get.find<ApiService>();
   // OTP message
   void otpMessage(String otpMsg) {
@@ -39,35 +39,5 @@ class Utility extends GetxService {
   void resetTimer() {
     if (timer.isActive) timer.cancel();
     startTimer();
-  }
-
-  // Function for tap
-
-  void buttonCall(String phone) {
-    if (phone.isNotEmpty) {
-      apiService.fetchOtp(phone).then((value) {
-        otpMessage(value);
-        Get.toNamed('/otpScreen', arguments: phone);
-      });
-    } else {
-      Get.snackbar("Invalid Number", "Enter valid phone number");
-    }
-  }
-
-  // resend OTP call
-  void resendCall(String phone) {
-    if (phone.isNotEmpty) {
-      apiService.fetchOtp(phone);
-    } else {
-      Get.snackbar("Invalid Number", "Enter valid phone number");
-    }
-  }
-
-  // OTP verify
-
-  void otpVerify(String phoneNumber, String otp) {
-    apiService.verifyOtp(phoneNumber, otp).then((value) {
-      resetTimer();
-    });
   }
 }

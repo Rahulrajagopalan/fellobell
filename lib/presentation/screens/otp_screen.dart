@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:fello_bell_project/presentation/controller/otp_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fello_bell_project/core/constants.dart';
@@ -16,8 +17,9 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   late String phoneNumber;
-  final TextEditingController otpController = TextEditingController();
-  final utils = Get.find<Utility>();
+  final TextEditingController otpTextController = TextEditingController();
+  final utils = Utility();
+  final otpController = Get.put(OtpController());
 
   // Timer for OTP countdown
   var start = 60.obs;
@@ -51,7 +53,7 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void dispose() {
     timer.cancel();
-    otpController.dispose();
+    otpTextController.dispose();
     super.dispose();
   }
 
@@ -81,7 +83,7 @@ class _OtpScreenState extends State<OtpScreen> {
             ),
             Constants.h10,
             Pinput(
-              controller: otpController,
+              controller: otpTextController,
               length: 4,
               defaultPinTheme: PinTheme(
                 width: 80,
@@ -97,14 +99,18 @@ class _OtpScreenState extends State<OtpScreen> {
             CustomButton(
               buttonText: "Verify",
               buttonFunction: () {
-                utils.otpVerify(phoneNumber, otpController.text);
+                otpController
+                    .verifyOtp(phoneNumber, otpTextController.text)
+                    .then((value) {
+                  resetTimer();
+                });
               },
             ),
             Constants.h20,
             ResendOtpText(
               phoneNumber: phoneNumber,
-              start: start, // Pass the observable countdown timer
-              resetTimer: resetTimer, // Pass the resetTimer function
+              start: start,
+              resetTimer: resetTimer,
             )
           ],
         ),

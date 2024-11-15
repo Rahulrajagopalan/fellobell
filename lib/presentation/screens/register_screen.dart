@@ -1,5 +1,5 @@
 import 'package:fello_bell_project/core/constants.dart';
-import 'package:fello_bell_project/core/utility.dart';
+import 'package:fello_bell_project/presentation/controller/register_controller.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +15,13 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
   final phoneController = TextEditingController();
-  final Utility utils = Get.find<Utility>();
+  final registerController = Get.find<RegisterController>();
   @override
   void dispose() {
     phoneController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +57,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 buttonText: "Get OTP",
                 buttonFunction: () {
                   if (formKey.currentState!.validate()) {
-                    utils.buttonCall(phoneController.text);
+                    if (phoneController.text.isNotEmpty) {
+                      registerController
+                          .requestOtpAndNavigate(phoneController.text);
+                    } else {
+                      Get.snackbar(
+                          "Invalid Number", "Enter valid phone number");
+                    }
                   }
                 },
               ),
