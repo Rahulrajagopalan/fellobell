@@ -13,9 +13,9 @@ class Dependency {
   }
 
   static void _controllers() {
-    Get.lazyPut<OtpController>(() => OtpController());
-    Get.lazyPut<LoginController>(() => LoginController());
-    Get.lazyPut<RegisterController>(() => RegisterController());
+    Get.put<OtpController>(OtpController());
+    Get.put<LoginController>(LoginController());
+    Get.put<RegisterController>(RegisterController());
   }
 }
 
