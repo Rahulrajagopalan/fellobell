@@ -23,7 +23,7 @@ class OtpController extends GetxController {
       Utility().successMessage("OTP verified successfully!");
       Get.toNamed("/login");
     } else {
-      Utility().errorMessage("Failed to verify OTP. Try again.");
+      Get.snackbar("Failed to verify OTP", "Try again");
     }
   }
 }

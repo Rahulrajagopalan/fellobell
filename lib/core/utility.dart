@@ -15,8 +15,10 @@ class Utility {
   void successMessage(String msg) {
     Get.snackbar("Success!!!", msg);
   }
+  // error message
+  
   void errorMessage(String msg) {
-    Get.snackbar("Somethin Went Wrong!!!", msg);
+    Get.snackbar("Something Went Wrong!!!", msg);
   }
 
   // Timer for OTP
