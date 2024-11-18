@@ -16,8 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialRoute: "/",
-      theme: ThemeController().lightTheme,
-      darkTheme: ThemeController().darkTheme,
+      theme: ThemeData(useMaterial3: false),
       getPages: Navigation.routes,
       debugShowCheckedModeBanner: false,
       title: 'Fellobell',

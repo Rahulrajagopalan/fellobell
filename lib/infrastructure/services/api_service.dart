@@ -8,7 +8,7 @@ import 'package:fello_bell_project/presentation/model/otp_response.dart';
 import 'package:fello_bell_project/presentation/model/otp_verify.dart';
 import 'package:get/get.dart';
 
-class ApiService {
+class ApiService extends GetxService {
   // Singleton pattern for ApiService
   static final ApiService _instance = ApiService._internal();
   factory ApiService() => _instance;

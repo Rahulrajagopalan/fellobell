@@ -9,11 +9,15 @@ class IntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        shadowColor: Colors.white,
+        backgroundColor: Colors.white,
+        elevation: 0,
         actions: [
           IconButton(onPressed: () {
             Get.changeThemeMode(Get.isDarkMode? ThemeMode.light: ThemeMode.dark);
-          }, icon: Icon(Icons.sunny))
+          }, icon: Icon(Icons.sunny, color: Colors.black,))
         ],
       ),
       body: Padding(
@@ -48,6 +52,7 @@ class IntroScreen extends StatelessWidget {
           ],
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 }

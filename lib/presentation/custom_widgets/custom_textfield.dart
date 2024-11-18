@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextfield extends StatelessWidget {
   final TextEditingController textController;
@@ -9,6 +10,9 @@ class CustomTextfield extends StatelessWidget {
     return TextFormField(
       maxLength: 10,
       keyboardType: TextInputType.phone,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+      ],
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "Phone number cannot be empty";
@@ -20,7 +24,7 @@ class CustomTextfield extends StatelessWidget {
       },
       controller: textController,
       style: TextStyle(color: Colors.black),
-      decoration: const InputDecoration(border: OutlineInputBorder(), prefix: Text("+ 91 ")),
+      decoration: const InputDecoration(border: OutlineInputBorder(), prefix: Text("+ 91 "), counterText: ''),
     );
   }
 }

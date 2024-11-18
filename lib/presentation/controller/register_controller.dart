@@ -15,6 +15,7 @@ class RegisterController extends GetxController {
       }
     } catch (e) {
       // Handle any errors that occur during OTP request
+      print(e);
       Get.snackbar("Error", "Failed to request OTP");
     }
   }
