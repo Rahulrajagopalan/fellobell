@@ -1,4 +1,5 @@
 import 'package:fello_bell_project/core/constants.dart';
+import 'package:fello_bell_project/core/theme/app_text_theme.dart';
 import 'package:fello_bell_project/presentation/controller/login_controller.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_textfield.dart';
@@ -42,16 +43,16 @@ class _LoginScreenState extends State<LoginScreen> {
               Constants.appImage,
               Text(
                 "Welcome",
-                style: Constants.customHeading,
+                style: AppTextTheme.customHeading,
               ),
               Text(
                 "Enter mobile number to continue",
-                style: Constants.customDescription,
+                style: AppTextTheme.customDescription,
               ),
               Constants.h20,
               Text(
                 "Enter your mobile number",
-                style: Constants.customSubHeading,
+                style: AppTextTheme.customSubHeading,
               ),
               Constants.h20,
               CustomTextfield(textController: phoneController),

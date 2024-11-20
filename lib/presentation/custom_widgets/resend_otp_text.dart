@@ -1,6 +1,6 @@
+import 'package:fello_bell_project/core/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:fello_bell_project/core/constants.dart';
 import 'package:fello_bell_project/core/utility.dart';
 import 'package:fello_bell_project/infrastructure/services/api_service.dart';
 
@@ -35,7 +35,7 @@ class ResendOtpText extends StatelessWidget {
             children: [
               Text(
                 "Didn't receive an OTP? ",
-                style: Constants.customSubHeading,
+                style: AppTextTheme.customSubHeading,
               ),
               Text(
                 "Resend in ${start.value} sec",

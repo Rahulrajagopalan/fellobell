@@ -21,7 +21,7 @@ class OtpController extends GetxController {
     final isVerified = await _apiService.verifyPhoneOtp(phone, otp);
     if (isVerified) {
       Utility().successMessage("OTP verified successfully!");
-      Get.toNamed("/login");
+      Get.toNamed("/home");
     } else {
       Get.snackbar("Failed to verify OTP", "Try again");
     }

@@ -1,4 +1,5 @@
 import 'package:fello_bell_project/core/constants.dart';
+import 'package:fello_bell_project/core/theme/app_text_theme.dart';
 import 'package:fello_bell_project/presentation/controller/register_controller.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_textfield.dart';
@@ -41,18 +42,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
             children: [
               Text(
                 "Let's Get Started!",
-                style: Constants.customHeading,
+                style: AppTextTheme.customHeading,
               ),
               Text(
                 "Create an account to get all features",
-                style: Constants.customDescription,
+                style: AppTextTheme.customDescription,
               ),
               Constants.h20,
               Row(
                 children: [
                   Text(
                     "Enter your mobile number",
-                    style: Constants.customSubHeading,
+                    style: AppTextTheme.customSubHeading,
                   ),
                 ],
               ),
@@ -78,7 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   Text(
                     "Already have an account?",
-                    style: Constants.customSubHeading,
+                    style: AppTextTheme.customSubHeading,
                   ),
                   CustomTextButton(
                     routeName: '/login',

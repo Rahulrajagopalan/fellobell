@@ -1,6 +1,5 @@
-import 'package:fello_bell_project/presentation/controller/login_controller.dart';
 import 'package:fello_bell_project/presentation/controller/otp_controller.dart';
-import 'package:fello_bell_project/presentation/controller/register_controller.dart';
+import 'package:fello_bell_project/presentation/screens/home/home_navigation.dart';
 import 'package:fello_bell_project/presentation/screens/intro_screen.dart';
 import 'package:fello_bell_project/presentation/screens/login_screen.dart';
 import 'package:fello_bell_project/presentation/screens/otp_screen.dart';
@@ -22,5 +21,8 @@ class Navigation {
     GetPage(
         name: "/login",
         page: () => const LoginScreen(),),
+    GetPage(
+        name: "/home",
+        page: () => HomeNavigation(),),
   ];
 }

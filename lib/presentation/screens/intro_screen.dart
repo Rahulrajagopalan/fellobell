@@ -1,4 +1,5 @@
 import 'package:fello_bell_project/core/constants.dart';
+import 'package:fello_bell_project/core/theme/app_text_theme.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,12 +30,12 @@ class IntroScreen extends StatelessWidget {
             Constants.h20,
             Text(
               "Welcome to Fellobell",
-              style: Constants.customHeading,
+              style: AppTextTheme.customHeading,
             ),
             const SizedBox(
               height: 20,
             ),
-            Constants.introDialogue,
+            AppTextTheme.introDialogue,
             Padding(
               padding: Constants.horizon20,
               child: Column(

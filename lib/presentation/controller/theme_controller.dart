@@ -1,4 +1,5 @@
-import 'package:fello_bell_project/core/constants.dart';
+import 'package:fello_bell_project/core/theme/app_color_scheme.dart';
+import 'package:fello_bell_project/core/theme/app_text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,11 +14,11 @@ class ThemeController{
   }
 
   ThemeData get lightTheme => ThemeData(
-    primaryColor: Constants.primaryColor,
-    hintColor: Constants.accentColor,
+    primaryColor: AppColorScheme.primaryColor,
+    hintColor: AppColorScheme.accentColor,
     textTheme: TextTheme(
-      displayLarge: Constants.customHeading,
-      bodyLarge: Constants.customDescription,
+      displayLarge: AppTextTheme.customHeading,
+      bodyLarge: AppTextTheme.customDescription,
     ),
   );
 
@@ -25,8 +26,8 @@ class ThemeController{
     primaryColor: Colors.grey[900],
     hintColor: Colors.orange[300],
     textTheme: TextTheme(
-      displayLarge: Constants.customHeading.copyWith(color: Colors.white),
-      bodyLarge: Constants.customDescription.copyWith(color: Colors.grey[200]),
+      displayLarge: AppTextTheme.customHeading.copyWith(color: Colors.white),
+      bodyLarge: AppTextTheme.customDescription.copyWith(color: Colors.grey[200]),
     ),
   );
 }

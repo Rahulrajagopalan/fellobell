@@ -1,6 +1,5 @@
 import 'package:fello_bell_project/domain/core/di/dependancy.dart';
 import 'package:fello_bell_project/infrastructure/navigation/navigation.dart';
-import 'package:fello_bell_project/presentation/controller/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialRoute: "/",
-      theme: ThemeData(useMaterial3: false),
+      theme: ThemeData(useMaterial3: false, fontFamily: "Source Sans Pro"),
       getPages: Navigation.routes,
       debugShowCheckedModeBanner: false,
       title: 'Fellobell',

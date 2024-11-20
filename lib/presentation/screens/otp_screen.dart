@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:fello_bell_project/core/theme/app_text_theme.dart';
 import 'package:fello_bell_project/presentation/controller/otp_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -73,7 +74,7 @@ class _OtpScreenState extends State<OtpScreen> {
           children: [
             Text(
               "OTP Verification",
-              style: Constants.customHeading,
+              style: AppTextTheme.customHeading,
             ),
             Text(
               "Enter otp sent to +91 $phoneNumber",
@@ -83,7 +84,7 @@ class _OtpScreenState extends State<OtpScreen> {
               children: [
                 Text(
                   "Enter OTP",
-                  style: Constants.customSubHeading,
+                  style: AppTextTheme.customSubHeading,
                 ),
               ],
             ),
