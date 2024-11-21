@@ -6,6 +6,7 @@ import 'package:fello_bell_project/core/utility.dart';
 import 'package:fello_bell_project/infrastructure/services/api_constants.dart';
 import 'package:fello_bell_project/presentation/model/otp_response.dart';
 import 'package:fello_bell_project/presentation/model/otp_verify.dart';
+import 'package:fello_bell_project/presentation/model/post_model.dart';
 import 'package:get/get.dart';
 
 class ApiService extends GetxService {
@@ -13,8 +14,6 @@ class ApiService extends GetxService {
   static final ApiService _instance = ApiService._internal();
   factory ApiService() => _instance;
   ApiService._internal();
-
-  final ApiConstants apiConstants = ApiConstants();
   final dio.Dio _dioInstance = Get.find<dio.Dio>();
 
   Future<String> fetchOtp(String phone) async {
@@ -27,8 +26,8 @@ class ApiService extends GetxService {
 
       // Send OTP request
       final response = await _dioInstance.post(
-        '${apiConstants.baseUrl}/registration_otp_req',
-        options: dio.Options(headers: apiConstants.headers),
+        '${ApiConstants.baseUrl}/registration_otp_req',
+        options: dio.Options(headers: ApiConstants.headers),
         data: formData,
       );
 
@@ -59,8 +58,8 @@ class ApiService extends GetxService {
       });
 
       final response = await _dioInstance.post(
-        '${apiConstants.baseUrl}/otp_validation',
-        options: dio.Options(headers: apiConstants.headers),
+        '${ApiConstants.baseUrl}/otp_validation',
+        options: dio.Options(headers: ApiConstants.headers),
         data: formData,
       );
 
@@ -82,6 +81,48 @@ class ApiService extends GetxService {
     } catch (e) {
       log("Error in verifyOtp: $e");
       return false;
+    }
+  }
+
+  // Fetch Posts
+
+  Future<PostModel?> fetchPosts(String userId) async {
+    try {
+      final formData = dio.FormData.fromMap({
+        'user_id': userId,
+        'latitude': '75',
+        'longitude': '65',
+      });
+
+      final response = await _dioInstance.post(
+        '${ApiConstants.baseUrl}/get_all_posts',
+        options: dio.Options(headers: {
+          'X-Auth-Client': '12345',
+          'X-Auth-Token': '12345',
+          'Authorization': ApiConstants.accessToken,
+        }),
+        data: formData,
+      );
+
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.data);
+        final postResponse = PostModel.fromJson(responseData);
+        if (postResponse.status) {
+          return postResponse;
+        } else {
+          log("Error: ${postResponse.message}");
+          Get.snackbar("Error", postResponse.message);
+          return null;
+        }
+      } else {
+        log("Server error: ${response.statusCode}");
+        Get.snackbar("Error", "Server error occurred");
+        return null;
+      }
+    } catch (e) {
+      log("Exception in fetchPosts: $e");
+      Get.snackbar("Error", "An error occurred while fetching posts");
+      return null;
     }
   }
 }

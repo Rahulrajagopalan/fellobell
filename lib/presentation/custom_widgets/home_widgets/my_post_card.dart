@@ -1,8 +1,10 @@
 import 'package:fello_bell_project/core/theme/app_color_scheme.dart';
+import 'package:fello_bell_project/presentation/model/post_model.dart';
 import 'package:flutter/material.dart';
 
 class MyPostCard extends StatelessWidget {
-  const MyPostCard({super.key});
+  PostModel postModel;
+  MyPostCard({super.key, required this.postModel});
 
   @override
   Widget build(BuildContext context) {

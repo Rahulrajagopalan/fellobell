@@ -20,8 +20,14 @@ class Constants {
 
   // Icons in use
 
-  static const String notifyIconPath = 'assets/icon/appicon/notify.svg';
-  static const String notifyPath = 'assets/icon/appicons/notification.png';
+  static const String notifyIconPath = 'assets/images/notification.png';
+  static const String homeIcon = 'assets/images/home.png';
+  static const String jobsIcon = 'assets/images/jobs.png';
+  static const String addPostIcon = 'assets/images/add_post.png';
+  static const String postsIcon= 'assets/images/posts.png';
+  static const String profileIcon= 'assets/images/profile.png';
+
+  // static const String notifyIconPath = 'assets/icon/appicon/notify.svg';
   // static const String homeIconPath = 'assets/icon/appicon/home.svg';
   // static const String profileIconPath = 'assets/icon/appicon/profile.svg';
 

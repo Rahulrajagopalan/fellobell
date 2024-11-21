@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:fello_bell_project/infrastructure/services/api_service.dart';
+import 'package:fello_bell_project/presentation/controller/home_controller.dart';
 import 'package:fello_bell_project/presentation/controller/login_controller.dart';
 import 'package:fello_bell_project/presentation/controller/otp_controller.dart';
 import 'package:fello_bell_project/presentation/controller/register_controller.dart';
@@ -16,6 +17,7 @@ class Dependency {
     Get.put<OtpController>(OtpController());
     Get.put<LoginController>(LoginController());
     Get.put<RegisterController>(RegisterController());
+    Get.put<HomeController>(HomeController());
   }
 }
 

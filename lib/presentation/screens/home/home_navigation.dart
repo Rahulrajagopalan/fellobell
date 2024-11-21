@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fello_bell_project/core/constants.dart';
 import 'package:fello_bell_project/core/theme/app_color_scheme.dart';
 import 'package:fello_bell_project/presentation/screens/home/add_post_screen.dart';
 import 'package:fello_bell_project/presentation/screens/home/home_body.dart';
@@ -20,11 +21,11 @@ class _HomeNavigationState extends State<HomeNavigation> {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> navItems = [
-      {'image': 'assets/images/home.png', 'iconName': 'Home'},
-      {'image': 'assets/images/jobs.png', 'iconName': 'Jobs'},
-      {'image': 'assets/images/add_post.png', 'isSpecial': true},
-      {'image': 'assets/images/posts.png', 'iconName': 'Post'},
-      {'image': 'assets/images/profile.png', 'iconName': 'Profile'},
+      {'image': Constants.homeIcon, 'iconName': 'Home'},
+      {'image': Constants.jobsIcon, 'iconName': 'Jobs'},
+      {'image': Constants.addPostIcon, 'isSpecial': true},
+      {'image': Constants.postsIcon, 'iconName': 'Post'},
+      {'image': Constants.profileIcon, 'iconName': 'Profile'},
     ];
     final List<Widget> pages = [
       HomeBody(),
