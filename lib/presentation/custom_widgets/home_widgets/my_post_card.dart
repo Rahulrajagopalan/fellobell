@@ -25,18 +25,18 @@ class MyPostCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundImage:
-                    AssetImage('assets/images/profile_picture.png'),
+                    NetworkImage(postModel.userImage),
               ),
               SizedBox(width: 20),
-              Text('James', style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(postModel.createdUserName, style: TextStyle(fontWeight: FontWeight.bold)),
             ],
           ),
-          Text('Plumbing', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(postModel.name, style: TextStyle(fontWeight: FontWeight.bold)),
           Row(
             children: [
-              Text('Ernakulam', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+              Text(postModel.landmark.split(",").first, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
               Spacer(),
-              Text('FB1021', style: TextStyle(color: Colors.grey, fontSize: 12)),
+              Text(postModel.jobId, style: TextStyle(color: Colors.grey, fontSize: 12)),
             ],
           ),
         ],

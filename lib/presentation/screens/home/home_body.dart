@@ -4,7 +4,6 @@ import 'package:fello_bell_project/presentation/custom_widgets/home_widgets/my_p
 import 'package:fello_bell_project/presentation/custom_widgets/home_widgets/post_list_card.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/home_widgets/section_header.dart';
 import 'package:fello_bell_project/presentation/custom_widgets/home_widgets/upgrade_container.dart';
-import 'package:fello_bell_project/presentation/model/post_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,8 +19,14 @@ final homeController = Get.find<HomeController>();
 class _HomeBodyState extends State<HomeBody> {
   @override
   void initState() {
-    homeController.fetchAndHandlePosts("1");
+    loadPosts();
     super.initState();
+  }
+
+  void loadPosts() {
+    final String userId = "332";
+    homeController.getAllPosts(userId);
+    homeController.getMyPosts(userId);
   }
 
   @override
@@ -79,11 +84,10 @@ class _HomeBodyState extends State<HomeBody> {
                     child: Obx(() {
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: homeController.posts.length,
+                        itemCount: homeController.allPosts.length,
                         itemBuilder: (context, index) {
-                          final posts =
-                              PostModel.fromJson(homeController.posts[index]);
-                          return MyPostCard(postModel: posts);
+                          final myposts = homeController.allPosts[index];
+                          return MyPostCard(postModel: myposts);
                         },
                       );
                     }),
@@ -92,11 +96,16 @@ class _HomeBodyState extends State<HomeBody> {
                   SectionHeader(title: 'Post List', onViewAll: () {}),
                   SizedBox(
                     height: 200,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 6,
-                      itemBuilder: (context, index) => PostListCard(),
-                    ),
+                    child: Obx(() {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: homeController.myPosts.length,
+                        itemBuilder: (context, index) {
+                          final posts = homeController.myPosts[index];
+                          return PostListCard(myPostModel: posts);
+                        },
+                      );
+                    }),
                   ),
                 ],
               ),
