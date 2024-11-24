@@ -12,6 +12,7 @@ class HomeController extends GetxController {
 
   var allPosts = <PostModel>[].obs;
   var myPosts = <MyPostModel>[].obs;
+  var userDetails = Rxn<UserModel>();
 
   Future<void> getAllPosts(String userId) async {
     try {
@@ -20,8 +21,7 @@ class HomeController extends GetxController {
 
       if (postResponse != null && postResponse.isNotEmpty) {
         allPosts.value = postResponse;
-      } 
-      else {
+      } else {
         Utility().errorMessage("No All posts found or an error occurred.");
       }
     } catch (e) {
@@ -36,8 +36,7 @@ class HomeController extends GetxController {
 
       if (postResponse != null && postResponse.isNotEmpty) {
         myPosts.value = postResponse;
-      } 
-      else {
+      } else {
         Utility().errorMessage("No posts found or an error occurred.");
       }
     } catch (e) {
@@ -45,24 +44,23 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<UserModel?> getContractorDetails(String userId) async {
-  try {
-    log("Fetching contractor details for user ID: $userId");
+  Future<void> getContractorDetails(String userId) async {
+    try {
+      log("Fetching contractor details for user ID: $userId");
 
-    final contractorDetails = await _apiService.fetchContractorDetails(userId);
+      // Fetch details from API
+      final contractorDetails =
+          await _apiService.fetchContractorDetails(userId);
 
-    if (contractorDetails != null) {
-      UserModel returnData = contractorDetails;
-      log("Contractor details loaded successfully.");
-      return returnData;
-    } else {
-      Utility().errorMessage("No contractor details found or an error occurred.");
-      return null;
+      if (contractorDetails != null) {
+        userDetails.value = contractorDetails; // Update reactive variable
+        log("Contractor details loaded successfully.");
+      } else {
+        Utility()
+            .errorMessage("No contractor details found or an error occurred.");
+      }
+    } catch (e) {
+      Utility().errorMessage("Failed to fetch contractor details: $e");
     }
-  } catch (e) {
-    Utility().errorMessage("Failed to fetch contractor details: $e");
-    return null;
   }
-}
-
 }

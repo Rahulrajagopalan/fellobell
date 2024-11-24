@@ -27,6 +27,7 @@ class _HomeBodyState extends State<HomeBody> {
     final String userId = "332";
     homeController.getAllPosts(userId);
     homeController.getMyPosts(userId);
+    homeController.getContractorDetails(userId);
   }
 
   @override
@@ -43,34 +44,40 @@ class _HomeBodyState extends State<HomeBody> {
                   borderRadius:
                       BorderRadius.vertical(bottom: Radius.circular(15)),
                   color: AppColorScheme.backgroundOrange),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Colors.white,
-                    backgroundImage:
-                        AssetImage("assets/images/profile_picture.png"),
-                  ),
-                  SizedBox(width: 10),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              child: Obx(
+                () {
+                  var user = homeController.userDetails.value!;
+                  return Row(
                     children: [
-                      Text('Welcome, James',
-                          style: TextStyle(color: Colors.white, fontSize: 18)),
-                      Text('887766554433',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                          )),
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundColor: Colors.white,
+                        backgroundImage:
+                            NetworkImage(user.userImage),
+                      ),
+                      SizedBox(width: 10),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(user.name,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18)),
+                          Text(user.mobileNo,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                              )),
+                        ],
+                      ),
+                      Spacer(),
+                      Image.asset(
+                        'assets/images/notification.png',
+                        height: 20,
+                      )
                     ],
-                  ),
-                  Spacer(),
-                  Image.asset(
-                    'assets/images/notification.png',
-                    height: 20,
-                  )
-                ],
+                  );
+                },
               ),
             ),
             SizedBox(height: 20),

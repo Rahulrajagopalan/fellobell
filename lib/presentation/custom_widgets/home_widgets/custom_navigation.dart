@@ -37,9 +37,13 @@ class _CustomNavigationState extends State<CustomNavigation> {
             final item = navItems[index];
             if (item.containsKey('isSpecial') && item['isSpecial'] == true) {
               return Center(
-                child: GestureDetector(onTap: () {
-                  log("Add Post Clicked");
-                }, child: Image.asset(item['image'],)),
+                child: GestureDetector(
+                    onTap: () {
+                      log("Add Post Clicked");
+                    },
+                    child: Image.asset(
+                      item['image'],
+                    )),
               );
             }
             return Padding(
@@ -53,7 +57,10 @@ class _CustomNavigationState extends State<CustomNavigation> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(item['image'], color: index == currentIndex ? Colors.white : Colors.grey,),
+                    Image.asset(
+                      item['image'],
+                      color: index == currentIndex ? Colors.white : Colors.grey,
+                    ),
                     Text(
                       item['iconName'],
                       style: TextStyle(
@@ -69,6 +76,24 @@ class _CustomNavigationState extends State<CustomNavigation> {
           },
         ),
       ),
+    );
+  }
+}
+
+class CustomAppBar extends AppBar {
+  String titleName;
+  CustomAppBar({super.key, required this.titleName});
+
+  Widget build(BuildContext context) {
+    return AppBar(
+      shadowColor: Colors.white,
+      backgroundColor: Colors.white,
+      title: Text(
+        titleName,
+        style: TextStyle(color: Colors.black),
+      ),
+      elevation: 0,
+      iconTheme: IconThemeData(color: Colors.black),
     );
   }
 }

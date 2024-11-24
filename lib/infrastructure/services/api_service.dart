@@ -12,7 +12,6 @@ import 'package:fello_bell_project/presentation/model/user_model.dart';
 import 'package:get/get.dart';
 
 class ApiService extends GetxService {
-  final _getMyPosts = "/get_my_posts";
   // Singleton pattern for ApiService
   static final ApiService _instance = ApiService._internal();
   factory ApiService() => _instance;
@@ -173,11 +172,9 @@ class ApiService extends GetxService {
   // Get user details
   Future<UserModel?> fetchContractorDetails(String userId) async {
     try {
-      final formData = dio.FormData.fromMap({
-        'user_id': userId,
-      });
+      final formData = dio.FormData.fromMap({'user_id': userId});
 
-      // Sending POST request
+      // Send request to fetch user details
       final response = await _dioInstance.post(
         '${ApiConstants.baseUrl}/get_labour_contractor_details',
         options: dio.Options(headers: ApiConstants.headers),
@@ -185,15 +182,10 @@ class ApiService extends GetxService {
       );
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = jsonDecode(response.data);
-
-        if (responseData['status'] == true) {
-          final UserModel user = UserModel.fromJson(responseData['data']);
-          return user;
-        } else {
-          log("Error in response: ${responseData['message']}");
-          return null;
-        }
+        // Parse JSON response
+        final data = jsonDecode(response.data);
+        return UserModel.fromJson(
+            data['data']); // Assuming 'data' contains user details
       } else {
         log("Server error: Status Code ${response.statusCode}");
         return null;
