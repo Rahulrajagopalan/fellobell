@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:fello_bell_project/presentation/model/my_post_model.dart';
-import 'package:fello_bell_project/presentation/model/post_model.dart';
-import 'package:fello_bell_project/presentation/model/user_model.dart';
+import 'package:fello_bell_project/domain/models/my_post_model.dart';
+import 'package:fello_bell_project/domain/models/post_model.dart';
+import 'package:fello_bell_project/domain/models/user_model.dart';
 import 'package:get/get.dart';
 import 'package:fello_bell_project/infrastructure/services/api_service.dart';
 import 'package:fello_bell_project/core/utility.dart';
@@ -13,6 +13,18 @@ class HomeController extends GetxController {
   var allPosts = <PostModel>[].obs;
   var myPosts = <MyPostModel>[].obs;
   var userDetails = Rxn<UserModel>();
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadPosts("332");
+  }
+
+  void loadPosts(String userId) {
+    getAllPosts(userId);
+    getMyPosts(userId);
+    getContractorDetails(userId);
+  }
 
   Future<void> getAllPosts(String userId) async {
     try {

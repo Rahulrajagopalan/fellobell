@@ -1,34 +1,14 @@
 import 'package:fello_bell_project/core/theme/app_color_scheme.dart';
-import 'package:fello_bell_project/presentation/controller/home_controller.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/home_widgets/my_post_card.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/home_widgets/post_list_card.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/home_widgets/section_header.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/home_widgets/upgrade_container.dart';
+import 'package:fello_bell_project/presentation/home/controller/home_controller.dart';
+import 'package:fello_bell_project/presentation/widgets/my_post_card.dart';
+import 'package:fello_bell_project/presentation/widgets/post_list_card.dart';
+import 'package:fello_bell_project/presentation/widgets/section_header.dart';
+import 'package:fello_bell_project/presentation/widgets/upgrade_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomeBody extends StatefulWidget {
+class HomeBody extends GetView<HomeController> {
   const HomeBody({super.key});
-
-  @override
-  State<HomeBody> createState() => _HomeBodyState();
-}
-
-final homeController = Get.find<HomeController>();
-
-class _HomeBodyState extends State<HomeBody> {
-  @override
-  void initState() {
-    loadPosts();
-    super.initState();
-  }
-
-  void loadPosts() {
-    final String userId = "332";
-    homeController.getAllPosts(userId);
-    homeController.getMyPosts(userId);
-    homeController.getContractorDetails(userId);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +26,16 @@ class _HomeBodyState extends State<HomeBody> {
                   color: AppColorScheme.backgroundOrange),
               child: Obx(
                 () {
-                  var user = homeController.userDetails.value!;
+                  var user = controller.userDetails.value;
+                  if (user == null) {
+                    return Center(child: CircularProgressIndicator());
+                  }
                   return Row(
                     children: [
                       CircleAvatar(
                         radius: 25,
                         backgroundColor: Colors.white,
-                        backgroundImage:
-                            NetworkImage(user.userImage),
+                        backgroundImage: NetworkImage(user.userImage),
                       ),
                       SizedBox(width: 10),
                       Column(
@@ -91,9 +73,9 @@ class _HomeBodyState extends State<HomeBody> {
                     child: Obx(() {
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: homeController.allPosts.length,
+                        itemCount: controller.allPosts.length,
                         itemBuilder: (context, index) {
-                          final myposts = homeController.allPosts[index];
+                          final myposts = controller.allPosts[index];
                           return MyPostCard(postModel: myposts);
                         },
                       );
@@ -106,9 +88,9 @@ class _HomeBodyState extends State<HomeBody> {
                     child: Obx(() {
                       return ListView.builder(
                         shrinkWrap: true,
-                        itemCount: homeController.myPosts.length,
+                        itemCount: controller.myPosts.length,
                         itemBuilder: (context, index) {
-                          final posts = homeController.myPosts[index];
+                          final posts = controller.myPosts[index];
                           return PostListCard(myPostModel: posts);
                         },
                       );

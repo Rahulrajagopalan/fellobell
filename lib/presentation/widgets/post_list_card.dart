@@ -1,4 +1,4 @@
-import 'package:fello_bell_project/presentation/model/my_post_model.dart';
+import 'package:fello_bell_project/domain/models/my_post_model.dart';
 import 'package:flutter/material.dart';
 
 class PostListCard extends StatelessWidget {

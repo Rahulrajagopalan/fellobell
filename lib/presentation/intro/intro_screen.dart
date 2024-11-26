@@ -1,6 +1,6 @@
 import 'package:fello_bell_project/core/constants.dart';
 import 'package:fello_bell_project/core/theme/app_text_theme.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
+import 'package:fello_bell_project/presentation/widgets/custom_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,9 +12,6 @@ class IntroScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        shadowColor: Colors.white,
-        backgroundColor: Colors.white,
-        elevation: 0,
         actions: [
           IconButton(onPressed: () {
             Get.changeThemeMode(Get.isDarkMode? ThemeMode.light: ThemeMode.dark);

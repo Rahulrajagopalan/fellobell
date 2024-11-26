@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:fello_bell_project/infrastructure/services/api_service.dart';
-import 'package:fello_bell_project/presentation/controller/home_controller.dart';
-import 'package:fello_bell_project/presentation/controller/login_controller.dart';
-import 'package:fello_bell_project/presentation/controller/otp_controller.dart';
-import 'package:fello_bell_project/presentation/controller/register_controller.dart';
+import 'package:fello_bell_project/presentation/home/controller/home_controller.dart';
+import 'package:fello_bell_project/presentation/login/controller/login_controller.dart';
+import 'package:fello_bell_project/presentation/otp/controller/otp_controller.dart';
+import 'package:fello_bell_project/presentation/register/controller/register_controller.dart';
 import 'package:get/get.dart';
 
 class Dependency {

@@ -1,42 +1,23 @@
 import 'package:fello_bell_project/core/constants.dart';
 import 'package:fello_bell_project/core/theme/app_text_theme.dart';
-import 'package:fello_bell_project/presentation/controller/register_controller.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/custom_textfield.dart';
+import 'package:fello_bell_project/presentation/register/controller/register_controller.dart';
+import 'package:fello_bell_project/presentation/widgets/custom_buttons.dart';
+import 'package:fello_bell_project/presentation/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends GetView<RegisterController> {
   const RegisterScreen({super.key});
-
-  @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
-  final formKey = GlobalKey<FormState>();
-  final phoneController = TextEditingController();
-  final registerController = Get.find<RegisterController>();
-  @override
-  void dispose() {
-    phoneController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        shadowColor: Colors.white,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: Constants.horizon20,
         child: Form(
-          key: formKey,
+          key: controller.formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -58,15 +39,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ],
               ),
               Constants.h10,
-              CustomTextfield(textController: phoneController),
+              CustomTextfield(textController: controller.phoneController),
               Constants.h20,
               CustomButton(
                 buttonText: "Get OTP",
                 buttonFunction: () {
-                  if (formKey.currentState!.validate()) {
-                    if (phoneController.text.isNotEmpty) {
-                      registerController
-                          .requestOtpAndNavigate(phoneController.text);
+                  if (controller.formKey.currentState!.validate()) {
+                    if (controller.phoneController.text.isNotEmpty) {
+                      controller.requestOtpAndNavigate(
+                          controller.phoneController.text);
                     } else {
                       Get.snackbar(
                           "Invalid Number", "Enter valid phone number");

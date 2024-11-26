@@ -15,7 +15,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       initialRoute: "/",
-      theme: ThemeData(useMaterial3: false, fontFamily: "Source Sans Pro"),
+      theme: ThemeData(
+          useMaterial3: false,
+          fontFamily: "Source Sans Pro",
+          appBarTheme: AppBarTheme(
+            shadowColor: Colors.white,
+            backgroundColor: Colors.white,
+            titleTextStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+            centerTitle: true,
+            elevation: 0,
+            iconTheme: IconThemeData(color: Colors.black, size: 30),
+          )),
       getPages: Navigation.routes,
       debugShowCheckedModeBanner: false,
       title: 'Fellobell',

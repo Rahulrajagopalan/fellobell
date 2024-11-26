@@ -1,9 +1,9 @@
-import 'package:fello_bell_project/presentation/controller/otp_controller.dart';
-import 'package:fello_bell_project/presentation/screens/home/home_navigation.dart';
-import 'package:fello_bell_project/presentation/screens/intro_screen.dart';
-import 'package:fello_bell_project/presentation/screens/login_screen.dart';
-import 'package:fello_bell_project/presentation/screens/otp_screen.dart';
-import 'package:fello_bell_project/presentation/screens/register_screen.dart';
+import 'package:fello_bell_project/presentation/otp/controller/otp_controller.dart';
+import 'package:fello_bell_project/presentation/home/home_navigation.dart';
+import 'package:fello_bell_project/presentation/intro/intro_screen.dart';
+import 'package:fello_bell_project/presentation/login/login_screen.dart';
+import 'package:fello_bell_project/presentation/otp/otp_screen.dart';
+import 'package:fello_bell_project/presentation/register/register_screen.dart';
 import 'package:get/get.dart';
 
 class Navigation {

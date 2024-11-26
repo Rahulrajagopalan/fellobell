@@ -4,11 +4,11 @@ import 'dart:developer';
 import 'package:dio/dio.dart' as dio;
 import 'package:fello_bell_project/core/utility.dart';
 import 'package:fello_bell_project/infrastructure/services/api_constants.dart';
-import 'package:fello_bell_project/presentation/model/my_post_model.dart';
-import 'package:fello_bell_project/presentation/model/otp_response.dart';
-import 'package:fello_bell_project/presentation/model/otp_verify.dart';
-import 'package:fello_bell_project/presentation/model/post_model.dart';
-import 'package:fello_bell_project/presentation/model/user_model.dart';
+import 'package:fello_bell_project/domain/models/my_post_model.dart';
+import 'package:fello_bell_project/domain/models/otp_response.dart';
+import 'package:fello_bell_project/domain/models/otp_verify.dart';
+import 'package:fello_bell_project/domain/models/post_model.dart';
+import 'package:fello_bell_project/domain/models/user_model.dart';
 import 'package:get/get.dart';
 
 class ApiService extends GetxService {

@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'package:fello_bell_project/core/theme/app_text_theme.dart';
-import 'package:fello_bell_project/presentation/controller/otp_controller.dart';
+import 'package:fello_bell_project/presentation/otp/controller/otp_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fello_bell_project/core/constants.dart';
-import 'package:fello_bell_project/core/utility.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/custom_buttons.dart';
-import 'package:fello_bell_project/presentation/custom_widgets/resend_otp_text.dart';
+import 'package:fello_bell_project/presentation/widgets/custom_buttons.dart';
+import 'package:fello_bell_project/presentation/widgets/resend_otp_text.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -19,8 +18,6 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   late String phoneNumber;
   final TextEditingController otpTextController = TextEditingController();
-  final utils = Utility();
-  final otpController = Get.put(OtpController());
 
   // Timer for OTP countdown
   var start = 60.obs;
@@ -62,12 +59,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        shadowColor: Colors.white,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: Constants.horizon20,
         child: Column(
@@ -103,16 +95,18 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
             ),
             Constants.h20,
-            CustomButton(
+            GetBuilder<OtpController>(builder: (controller) {
+              return CustomButton(
               buttonText: "Verify",
               buttonFunction: () {
-                otpController
+                controller
                     .verifyOtp(phoneNumber, otpTextController.text)
                     .then((value) {
                   resetTimer();
                 });
               },
-            ),
+            );
+            },),
             Constants.h20,
             ResendOtpText(
               phoneNumber: phoneNumber,

@@ -79,21 +79,3 @@ class _CustomNavigationState extends State<CustomNavigation> {
     );
   }
 }
-
-class CustomAppBar extends AppBar {
-  String titleName;
-  CustomAppBar({super.key, required this.titleName});
-
-  Widget build(BuildContext context) {
-    return AppBar(
-      shadowColor: Colors.white,
-      backgroundColor: Colors.white,
-      title: Text(
-        titleName,
-        style: TextStyle(color: Colors.black),
-      ),
-      elevation: 0,
-      iconTheme: IconThemeData(color: Colors.black),
-    );
-  }
-}

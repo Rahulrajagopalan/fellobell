@@ -1,7 +1,24 @@
-import 'package:fello_bell_project/presentation/controller/otp_controller.dart';
+import 'package:fello_bell_project/presentation/otp/controller/otp_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterController extends GetxController {
+class LoginController extends GetxController {
+
+  final formKey = GlobalKey<FormState>();
+  late TextEditingController phoneController;
+
+  @override
+  void onInit() {
+    super.onInit();
+    phoneController = TextEditingController();
+  }
+
+  @override
+  void onClose() {
+    phoneController.dispose();
+    super.onClose();
+  }
+
   final otpController = Get.find<OtpController>();
 
   // Function to handle OTP request and navigation
@@ -14,7 +31,6 @@ class RegisterController extends GetxController {
         Get.snackbar("Error", "OTP call failed");
       }
     } catch (e) {
-      // Handle any errors that occur during OTP request
       Get.snackbar("Error", "Failed to request OTP");
     }
   }
