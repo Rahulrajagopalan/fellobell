@@ -1,6 +1,6 @@
 import 'package:fello_bell_project/core/theme/app_color_scheme.dart';
 import 'package:fello_bell_project/presentation/home/controller/home_controller.dart';
-import 'package:fello_bell_project/presentation/widgets/my_post_card.dart';
+import 'package:fello_bell_project/presentation/home/sub_screens/custom_carousel.dart';
 import 'package:fello_bell_project/presentation/widgets/post_list_card.dart';
 import 'package:fello_bell_project/presentation/widgets/section_header.dart';
 import 'package:fello_bell_project/presentation/widgets/upgrade_container.dart';
@@ -67,20 +67,7 @@ class HomeBody extends GetView<HomeController> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  SectionHeader(title: 'My Posts', onViewAll: () {}),
-                  SizedBox(
-                    height: 150,
-                    child: Obx(() {
-                      return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: controller.allPosts.length,
-                        itemBuilder: (context, index) {
-                          final myposts = controller.allPosts[index];
-                          return MyPostCard(postModel: myposts);
-                        },
-                      );
-                    }),
-                  ),
+                  CustomCarousel(),
                   SizedBox(height: 10),
                   SectionHeader(title: 'Post List', onViewAll: () {}),
                   SizedBox(

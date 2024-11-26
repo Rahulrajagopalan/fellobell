@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:fello_bell_project/domain/models/carousel_image_model.dart';
 import 'package:fello_bell_project/domain/models/my_post_model.dart';
 import 'package:fello_bell_project/domain/models/post_model.dart';
 import 'package:fello_bell_project/domain/models/user_model.dart';
@@ -12,6 +13,7 @@ class HomeController extends GetxController {
 
   var allPosts = <PostModel>[].obs;
   var myPosts = <MyPostModel>[].obs;
+  var carouselImages = <CarouselImageModel>[].obs;
   var userDetails = Rxn<UserModel>();
 
   @override
@@ -24,6 +26,7 @@ class HomeController extends GetxController {
     getAllPosts(userId);
     getMyPosts(userId);
     getContractorDetails(userId);
+    getCarouselImages(userId);
   }
 
   Future<void> getAllPosts(String userId) async {
@@ -73,6 +76,23 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       Utility().errorMessage("Failed to fetch contractor details: $e");
+    }
+  }
+
+  // Carousel images fetch
+
+  Future<void> getCarouselImages(String userId) async {
+    try {
+      log("Loading my posts");
+      final postResponse = await _apiService.fetchCarouselImages(userId);
+
+      if (postResponse != null && postResponse.isNotEmpty) {
+        carouselImages.value = postResponse;
+      } else {
+        Utility().errorMessage("No posts found or an error occurred.");
+      }
+    } catch (e) {
+      Utility().errorMessage("Failed to fetch posts: $e");
     }
   }
 }

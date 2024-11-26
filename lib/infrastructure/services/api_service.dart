@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:fello_bell_project/core/utility.dart';
+import 'package:fello_bell_project/domain/models/carousel_image_model.dart';
 import 'package:fello_bell_project/infrastructure/services/api_constants.dart';
 import 'package:fello_bell_project/domain/models/my_post_model.dart';
 import 'package:fello_bell_project/domain/models/otp_response.dart';
@@ -186,6 +187,44 @@ class ApiService extends GetxService {
         final data = jsonDecode(response.data);
         return UserModel.fromJson(
             data['data']); // Assuming 'data' contains user details
+      } else {
+        log("Server error: Status Code ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      log("Exception in fetchContractorDetails: $e");
+      return null;
+    }
+  }
+
+  // Get banner Images
+
+  Future<List<CarouselImageModel>?> fetchCarouselImages(String userId) async {
+    try {
+      final formData =
+          dio.FormData.fromMap({'user_id': userId, 'user_type': '0'});
+
+      // Send request to fetch user details
+      final response = await _dioInstance.post(
+        '${ApiConstants.baseUrl}/get_banners_list',
+        options: dio.Options(headers: ApiConstants.headers),
+        data: formData,
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> decodedJson = response.data is String
+            ? jsonDecode(response.data) as Map<String, dynamic>
+            : response.data as Map<String, dynamic>;
+        if (decodedJson['status'] == true) {
+          final List<CarouselImageModel> images = (decodedJson['data'] as List)
+              .map((item) => CarouselImageModel.fromJson(item))
+              .toList();
+          return images;
+        } else {
+          log("Error: ${decodedJson['message']}");
+          Get.snackbar("Error", decodedJson['message']);
+          return null;
+        }
       } else {
         log("Server error: Status Code ${response.statusCode}");
         return null;
