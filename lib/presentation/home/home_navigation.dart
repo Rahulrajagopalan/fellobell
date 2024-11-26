@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:fello_bell_project/core/constants.dart';
 import 'package:fello_bell_project/core/theme/app_color_scheme.dart';
-import 'package:fello_bell_project/presentation/screens/home/add_post_screen.dart';
-import 'package:fello_bell_project/presentation/screens/home/home_body.dart';
-import 'package:fello_bell_project/presentation/screens/home/jobs_screen.dart';
-import 'package:fello_bell_project/presentation/screens/home/posts_screen.dart';
-import 'package:fello_bell_project/presentation/screens/home/profile_screen.dart';
+import 'package:fello_bell_project/presentation/home/sub_screens/add_post_screen.dart';
+import 'package:fello_bell_project/presentation/home/sub_screens/home_body.dart';
+import 'package:fello_bell_project/presentation/home/sub_screens/jobs_screen.dart';
+import 'package:fello_bell_project/presentation/home/sub_screens/posts_screen.dart';
+import 'package:fello_bell_project/presentation/home/sub_screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeNavigation extends StatefulWidget {
